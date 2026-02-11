@@ -1,11 +1,16 @@
 # SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
 # SPDX-License-Identifier: MIT
 
+
+
+import csv
+import time
+#import numpy as np
 """
 Example sketch to connect to PM2.5 sensor with either I2C or UART.
 """
 
-import time
+
 
 import board
 import busio
@@ -47,6 +52,9 @@ pm25 = PM25_UART(uart, reset_pin)
 
 print("Found PM2.5 sensor, reading data...")
 
+aqdata = pm25.read()
+print(aqdata)
+"""
 while True:
     time.sleep(1)
 
@@ -78,3 +86,21 @@ while True:
     print("Particles > 5.0um / 0.1L air:", aqdata["particles 50um"])
     print("Particles > 10 um / 0.1L air:", aqdata["particles 100um"])
     print("---------------------------------------")
+
+
+
+file = open('data/test.csv', 'w', newline = None)
+
+csvwriter = csv.writer(file, delimiter = ',')
+
+meta = ['time', 'data']
+
+csvwriter.writerow(meta)
+
+for i in range(10):
+    now = time.time()
+    aqdata = pm25.read()
+    csvwriter.writerow([now, value])
+
+file.close()
+"""
