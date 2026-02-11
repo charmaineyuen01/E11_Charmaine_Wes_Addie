@@ -96,7 +96,7 @@ meta = ['time', '03um', '05um', '10um', '25um', '50um', '100um']
 csvwriter.writerow(meta)
 
 
-'''
+
 for i in range(10):
     now = time.time()
     aqdata = pm25.read()
@@ -106,6 +106,6 @@ for i in range(10):
                         aqdata["particles 25um"], 
                         aqdata["particles 50um"], 
                         aqdata["particles 100um"]])
-'''
+
 file.close()
 
