@@ -91,7 +91,9 @@ file = open('data/test.csv', 'w', newline = None)
 
 csvwriter = csv.writer(file, delimiter = ',')
 
-meta = ['time', '03um', '05um', '10um', '25um', '50um', '100um']
+meta = ['time', "pm10 standard", "pm25 standard", "pm100 standard",
+        "pm10 env", "pm25 env", "pm100 env",
+        '03um', '05um', '10um', '25um', '50um', '100um']
 
 csvwriter.writerow(meta)
 
@@ -102,12 +104,10 @@ for i in range(10):
     try:
         now = time.time()
         aqdata = pm25.read()
-        csvwriter.writerow([now, aqdata["particles 03um"], 
-                            aqdata["particles 05um"], 
-                            aqdata["particles 10um"], 
-                            aqdata["particles 25um"], 
-                            aqdata["particles 50um"], 
-                            aqdata["particles 100um"]])
+        csvwriter.writerow([now, aqdata["pm10 standard"], aqdata["pm25 standard"], aqdata["pm100 standard"],
+                            aqdata["pm10 env"], aqdata["pm25 env"], aqdata["pm100 env"],
+                            aqdata["particles 03um"], aqdata["particles 05um"], aqdata["particles 10um"], 
+                            aqdata["particles 25um"], aqdata["particles 50um"], aqdata["particles 100um"]])
     except RuntimeError:
         print("Unable to read from sensor, retrying...")
         continue
