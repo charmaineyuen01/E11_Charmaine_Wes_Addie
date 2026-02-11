@@ -99,14 +99,14 @@ csvwriter.writerow(meta)
 
 for i in range(10):
     try:
-    now = time.time()
-    aqdata = pm25.read()
-    csvwriter.writerow([now, aqdata["particles 03um"], 
-                        aqdata["particles 05um"], 
-                        aqdata["particles 10um"], 
-                        aqdata["particles 25um"], 
-                        aqdata["particles 50um"], 
-                        aqdata["particles 100um"]])
+        now = time.time()
+        aqdata = pm25.read()
+        csvwriter.writerow([now, aqdata["particles 03um"], 
+                            aqdata["particles 05um"], 
+                            aqdata["particles 10um"], 
+                            aqdata["particles 25um"], 
+                            aqdata["particles 50um"], 
+                            aqdata["particles 100um"]])
     except RuntimeError:
         print("Unable to read from sensor, retrying...")
         continue
