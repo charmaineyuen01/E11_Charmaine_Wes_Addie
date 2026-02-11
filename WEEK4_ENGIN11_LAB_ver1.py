@@ -52,9 +52,7 @@ pm25 = PM25_UART(uart, reset_pin)
 
 print("Found PM2.5 sensor, reading data...")
 
-aqdata = pm25.read()
-print(aqdata)
-"""
+'''
 while True:
     time.sleep(1)
 
@@ -87,20 +85,25 @@ while True:
     print("Particles > 10 um / 0.1L air:", aqdata["particles 100um"])
     print("---------------------------------------")
 
-
+'''
 
 file = open('data/test.csv', 'w', newline = None)
 
 csvwriter = csv.writer(file, delimiter = ',')
 
-meta = ['time', 'data']
+meta = ['time', '03um', '05um', '10um', '25um', '50um', '100um']
 
 csvwriter.writerow(meta)
 
 for i in range(10):
     now = time.time()
     aqdata = pm25.read()
-    csvwriter.writerow([now, value])
+    csvwriter.writerow([now, aqdata["particles 03um"], 
+                        aqdata["particles 05um"], 
+                        aqdata["particles 10um"], 
+                        aqdata["particles 25um"], 
+                        aqdata["particles 50um"], 
+                        aqdata["particles 100um"]])
 
 file.close()
-"""
+
