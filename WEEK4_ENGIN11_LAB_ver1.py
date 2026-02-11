@@ -49,10 +49,10 @@ pm25 = PM25_UART(uart, reset_pin)
 # i2c = busio.I2C(board.SCL, board.SDA, frequency=100000)
 # # Connect to a PM2.5 sensor over I2C
 # pm25 = PM25_I2C(i2c, reset_pin)
-
+'''
 print("Found PM2.5 sensor, reading data...")
 
-'''
+
 while True:
     time.sleep(1)
 
@@ -95,6 +95,8 @@ meta = ['time', '03um', '05um', '10um', '25um', '50um', '100um']
 
 csvwriter.writerow(meta)
 
+
+'''
 for i in range(10):
     now = time.time()
     aqdata = pm25.read()
@@ -104,6 +106,6 @@ for i in range(10):
                         aqdata["particles 25um"], 
                         aqdata["particles 50um"], 
                         aqdata["particles 100um"]])
-
+'''
 file.close()
 
