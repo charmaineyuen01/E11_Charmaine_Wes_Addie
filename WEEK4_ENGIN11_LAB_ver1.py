@@ -87,7 +87,7 @@ while True:
 
 '''
 
-file = open('data/test.csv', 'w', newline = None)
+file = open('data/lab4data.csv', 'w', newline = None)
 
 csvwriter = csv.writer(file, delimiter = ',')
 
