@@ -18,37 +18,16 @@ from digitalio import DigitalInOut, Direction, Pull
 
 from adafruit_pm25.i2c import PM25_I2C
 
+import adafruit_bme680
+import board
+import numpy as np
+import pandas as pd
+
 reset_pin = None
-# If you have a GPIO, its not a bad idea to connect it to the RESET pin
-# reset_pin = DigitalInOut(board.G0)
-# reset_pin.direction = Direction.OUTPUT
-# reset_pin.value = False
-
-
-# For use with a computer running Windows:
-# import serial
-# uart = serial.Serial("COM30", baudrate=9600, timeout=1)
-
-# For use with microcontroller board:
-# (Connect the sensor TX pin to the board/computer RX pin)
-# uart = busio.UART(board.TX, board.RX, baudrate=9600)
-
-# For use with Raspberry Pi/Linux:
 import serial
 uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=0.25)
-
-# For use with USB-to-serial cable:
-# import serial
-# uart = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=0.25)
-
-# Connect to a PM2.5 sensor over UART
 from adafruit_pm25.uart import PM25_UART
 pm25 = PM25_UART(uart, reset_pin)
-
-# Create library object, use 'slow' 100KHz frequency!
-# i2c = busio.I2C(board.SCL, board.SDA, frequency=100000)
-# # Connect to a PM2.5 sensor over I2C
-# pm25 = PM25_I2C(i2c, reset_pin)
 
 file = open('data/lab4data.csv', 'w', newline = None)
 
@@ -76,3 +55,41 @@ for i in range(10):
         continue
 
 file.close()
+
+#---------------------------------------------------------------------
+# Create sensor object, communicating over the board's default I2C bus
+i2c = board.I2C()   # uses board.SCL and board.SDA
+bme680 = adafruit_bme680.Adafruit_BME680_I2C(i2c)
+
+# change this to match the location's pressure (hPa) at sea level
+bme680.sea_level_pressure = 1013.25
+
+timeout = 10
+start_time = time.time()
+
+temp = []
+gas = []
+humidity = []
+pressure = []
+alt = []
+current_time = []
+
+while True:
+    temp = np.append(temp, bme680.temperature)
+    gas = np.append(gas, bme680.gas)
+    humidity = np.append(humidity, bme680.relative_humidity)
+    pressure = np.append(pressure, bme680.pressure)
+    alt = np.append(alt, bme680.altitude)
+    current_time = np.append(current_time, time.ctime())
+    
+    if (time.time() - start_time) > timeout:
+        print("END OF LOOP")
+        break
+    
+    time.sleep(2)
+
+    
+df = pd.DataFrame({'Time': current_time, 'Temp': temp, 'Gas': gas, 'Humidity': humidity, 'Pressue': pressure , 'Alt': alt})
+print(df)
+
+df.to_csv('ENGIN11_Week3Lab.csv')
