@@ -45,7 +45,7 @@ arguments = sys.argv
 runtime = int(arguments[2])
 data_path = 'data/lab5_trial' + arguments[1]
 
-file = open('data_path', 'w', newline = None)
+file = open(data_path, 'w', newline = None)
 
 csvwriter = csv.writer(file, delimiter = ',')
 
