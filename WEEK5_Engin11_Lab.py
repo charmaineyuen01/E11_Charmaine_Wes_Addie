@@ -39,7 +39,7 @@ def read_bme680():
     }
 
 wx = read_bme680()
-aq = pm25.read() 
+
 
 file = open('data/lab5data.csv', 'w', newline = None)
 
@@ -57,6 +57,7 @@ for i in range(10):
     time.sleep(2)
     try:
         now = time.time()
+        aq = pm25.read() 
         csvwriter.writerow([now, aq['pm10 standard'],  aq['pm25 standard'],  aq['pm100 standard'],
             aq['pm10 env'],       aq['pm25 env'],        aq['pm100 env'],
             aq['particles 03um'], aq['particles 05um'],  aq['particles 10um'],
