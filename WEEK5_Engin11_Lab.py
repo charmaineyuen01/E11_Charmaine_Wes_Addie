@@ -51,9 +51,10 @@ meta = ['time', "pm10 standard", "pm25 standard", "pm100 standard",
 
 csvwriter.writerow(meta)
 
+start = time.now()
+while time.now() < start + 10
 
-
-for i in range(10):
+#for i in range(10):
     time.sleep(2)
     try:
         now = time.time()
