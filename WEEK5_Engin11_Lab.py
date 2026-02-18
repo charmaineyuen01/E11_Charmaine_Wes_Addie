@@ -39,7 +39,7 @@ def read_bme680():
         'altitude_m':    bme680.altitude,
     }
 
-wx = read_bme680()
+
 
 arguments = sys.argv
 runtime = int(arguments[2])
@@ -56,13 +56,14 @@ meta = ['time', "pm10 standard", "pm25 standard", "pm100 standard",
 csvwriter.writerow(meta)
 
 start = time.time()
-while time.time() < start + 300:
+while time.time() < start + 10:
 
 #for i in range(10):
     time.sleep(2)
     try:
         now = time.time()
         aq = pm25.read() 
+        wx = read_bme680()
         csvwriter.writerow([now, aq['pm10 standard'],  aq['pm25 standard'],  aq['pm100 standard'],
             aq['pm10 env'],       aq['pm25 env'],        aq['pm100 env'],
             aq['particles 03um'], aq['particles 05um'],  aq['particles 10um'],
