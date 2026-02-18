@@ -5,8 +5,12 @@ import sys
 
 arguments = sys.argv
 print(arguments)
+runtime = int(arguments[2])
+data_path = 'data/' + arguments[1]
 
-file = open('data/test.csv', 'w', newline = None)
+
+
+file = open('data_path', 'w', newline = None)
 
 csvwriter = csv.writer(file, delimiter = ',')
 
@@ -15,6 +19,7 @@ meta = ['time', 'data']
 csvwriter.writerow(meta)
 
 for i in range(10):
+    time.sleep(1)
     now = time.time()
     value = np.random.random()
     csvwriter.writerow([now, value])
