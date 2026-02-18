@@ -14,6 +14,7 @@ import adafruit_bme680
 import board
 import numpy as np
 import pandas as pd
+import sys
 
 reset_pin = None
 import serial
@@ -40,8 +41,11 @@ def read_bme680():
 
 wx = read_bme680()
 
+arguments = sys.argv
+runtime = int(arguments[2])
+data_path = 'data/lab5_trial' + arguments[1]
 
-file = open('data/lab5data.csv', 'w', newline = None)
+file = open('data_path', 'w', newline = None)
 
 csvwriter = csv.writer(file, delimiter = ',')
 
