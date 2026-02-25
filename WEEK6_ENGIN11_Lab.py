@@ -39,7 +39,7 @@ def read_bme680():
 
 arguments = sys.argv
 runtime = int(arguments[2])
-data_path = 'data/lab5_trial' + arguments[1]
+data_path = 'data/lab6_trial' + arguments[1]
 
 file = open(data_path, 'w', newline = None)
 
