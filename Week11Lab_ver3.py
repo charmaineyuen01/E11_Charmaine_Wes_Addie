@@ -1,6 +1,6 @@
 import sys
 sys.path.append('/home/pi/cape_mca') # capemca.py directory
-from capemca import CapeMCA
+from capemca import *
 
 if __name__ == '__main__':
     import sys
