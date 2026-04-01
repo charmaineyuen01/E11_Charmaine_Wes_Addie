@@ -10,6 +10,10 @@ For non-root USB access on Raspberry Pi, create /etc/udev/rules.d/50-capemca.rul
 Then reboot or run: sudo udevadm control --reload-rules && sudo udevadm trigger
 """
 
+import sys
+sys.path.append('/home/pi/cape_mca') # capemca.py directory
+from capemca import CapeMCA
+
 import struct
 import usb.core
 import usb.util
